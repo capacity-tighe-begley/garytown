@@ -3,7 +3,7 @@ Loads Functions
 Creates Setup Complete Files
 #>
 
-$ScriptName = 'hope.garytown.com'
+$ScriptName = 'deploy.tighenet.com'
 $ScriptVersion = '25.1.22.1'
 
 
@@ -59,7 +59,7 @@ $ScriptVersion = '25.1.22.1'
     }
     #endregion
 
-iex (irm functions.garytown.com)
+iex (irm functions.tighenet.com)
 #region functions
 <#
 function Set-SetupCompleteCreateStartHOPEonUSB {

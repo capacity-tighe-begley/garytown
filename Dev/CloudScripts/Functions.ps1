@@ -1,4 +1,4 @@
-$ScriptName = 'functions.garytown.com'
+$ScriptName = 'functions.tighenet.com'
 $ScriptVersion = '25.1.7.1'
 Set-ExecutionPolicy Bypass -Force -ErrorAction SilentlyContinue
 

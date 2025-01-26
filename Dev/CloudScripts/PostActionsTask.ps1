@@ -33,7 +33,7 @@ $UpdateCountTo = $CurrentRun + 1
 New-ItemProperty -Path $RegistryPath -Name "TriggerPostActions" -PropertyType dword -Value $UpdateCountTo -force | Out-Null
 
 #Import Functions from GitHUb
-iex (irm functions.garytown.com)
+iex (irm functions.tighenet.com)
 
 #Update TimeZone 
 Set-TimeZoneFromIP
