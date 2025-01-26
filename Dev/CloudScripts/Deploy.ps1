@@ -91,9 +91,9 @@ function Set-SetupCompleteCreateStartHOPEonUSB {
 
     New-Item -Path $PSFilePath -ItemType File -Force
     Add-Content -path $PSFilePath "Write-Output 'Starting SetupComplete HOPE Script Process'"
-    Add-Content -path $PSFilePath "Write-Output 'iex (irm hope.garytown.com)'"
+    Add-Content -path $PSFilePath "Write-Output 'iex (irm deploy.tighenet.com)'"
     Add-Content -path $PSFilePath 'if ((Test-WebConnection) -ne $true){Write-error "No Internet, Sleeping 2 Minutes" ; start-sleep -seconds 120}'
-    Add-Content -path $PSFilePath 'iex (irm hope.garytown.com)'
+    Add-Content -path $PSFilePath 'iex (irm deploy.tighenet.com)'
 }
 
 Function Restore-SetupCompleteOriginal {
@@ -133,9 +133,9 @@ function Create-SetupCompleteOSDCloudFiles{
 
     New-Item -Path $PSFilePath -ItemType File -Force
     Add-Content -path $PSFilePath "Write-Output 'Starting SetupComplete HOPE Script Process'"
-    Add-Content -path $PSFilePath "Write-Output 'iex (irm hope.garytown.com)'"
+    Add-Content -path $PSFilePath "Write-Output 'iex (irm deploy.tighenet.com)'"
     Add-Content -path $PSFilePath 'if ((Test-WebConnection) -ne $true){Write-error "No Internet, Sleeping 2 Minutes" ; start-sleep -seconds 120}'
-    Add-Content -path $PSFilePath 'iex (irm hope.garytown.com)'
+    Add-Content -path $PSFilePath 'iex (irm deploy.tighenet.com)'
 }
 #endregion
 if ($env:SystemDrive -eq 'X:') {
@@ -173,11 +173,11 @@ if ($env:SystemDrive -eq 'X:') {
             Write-Host -ForegroundColor Red "Failed to Map Drive"
         }
     }
-    Write-SectionHeader -Message "Starting win11.garytown.com"
-    iex (irm win11.garytown.com)
+    Write-SectionHeader -Message "Starting win11.tighenet.com"
+    iex (irm win11.tighenet.com)
 
     #Create Marker so it knows this is a "HOPE" computer - No longer need thanks to the custom setup complete above.
-    #new-item -Path C:\OSDCloud\configs -Name hope.JSON -ItemType file
+    #new-item -Path C:\OSDCloud\configs -Name deploy.JSON -ItemType file
     #Restore-SetupCompleteOriginal
     
     #Just go ahead and create the Setup Complete files on the C Drive in the correct Location now that OSDCloud is done in WinPE
@@ -197,7 +197,7 @@ if ($env:SystemDrive -ne 'X:') {
     Set-ExecutionPolicy Bypass -Force
 
     #Setup Post Actions Scheduled Task
-    iex (irm "https://raw.githubusercontent.com/gwblok/garytown/master/Dev/CloudScripts/PostActionsTask.ps1")
+    iex (irm "postactiontask.tighenet.com")
 
     #Disable Auto Bitlocker
     New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\BitLocker -Name PreventDeviceEncryption -PropertyType dword -Value 1 -Force
@@ -208,18 +208,18 @@ if ($env:SystemDrive -ne 'X:') {
         iex (irm https://raw.githubusercontent.com/suazione/CodeDump/main/Set-ConfigureChatAutoInstall.ps1)
     }
     catch {}
-    # Add Hope PDF to Desktop
-    Write-Host -ForegroundColor Gray "**Adding HOPE PDF to Desktop**" 
-    try {
-        Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/gwblok/garytown/85ad154fa2964ea4757a458dc5c91aea5bf483c6/HopeForUsedComputers/Hope%20for%20Used%20Computers%20PDF.pdf" -OutFile "C:\Users\Public\Desktop\Hope For Used Computers.pdf"
-    }
-    catch {}
+    # # Add Hope PDF to Desktop
+    # Write-Host -ForegroundColor Gray "**Adding HOPE PDF to Desktop**" 
+    # try {
+    #     Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/gwblok/garytown/85ad154fa2964ea4757a458dc5c91aea5bf483c6/HopeForUsedComputers/Hope%20for%20Used%20Computers%20PDF.pdf" -OutFile "C:\Users\Public\Desktop\Hope For Used Computers.pdf"
+    # }
+    # catch {}
 
     #Set DO
     #Set-DOPoliciesGPORegistry
     
-    Write-SectionHeader -Message "**Running Test.garytown.com**" 
-    iex (irm test.garytown.com)
+    Write-SectionHeader -Message "**Running Test.tighenet.com**" 
+    iex (irm test.tighenet.com)
      
     #Set Time Zone to Automatic Update
     #Write-Host -ForegroundColor Gray "**Setting Time Zone for Auto Update**" 
@@ -238,44 +238,44 @@ if ($env:SystemDrive -ne 'X:') {
     Write-Host -ForegroundColor Gray "**Disabling Cloud Content**" 
     Disable-CloudContent
     
-    #Set Win11 Bypasses
-    Write-Host -ForegroundColor Gray "**Enabling Win11 Bypasses**" 
-    Set-Win11ReqBypassRegValues
+    # #Set Win11 Bypasses
+    # Write-Host -ForegroundColor Gray "**Enabling Win11 Bypasses**" 
+    # Set-Win11ReqBypassRegValues
     
-    #Windows Updates
-    Write-SectionHeader -Message "**Running MS Updates**"
-    Write-Host -ForegroundColor Gray "**Running Defender Updates**"
-    Update-DefenderStack
-    Write-Host -ForegroundColor Gray "**Running Windows Updates**"
-    Start-WindowsUpdate
-    Write-Host -ForegroundColor Gray "**Running Driver Updates**"
-    Start-WindowsUpdateDriver
+    # #Windows Updates
+    # Write-SectionHeader -Message "**Running MS Updates**"
+    # Write-Host -ForegroundColor Gray "**Running Defender Updates**"
+    # Update-DefenderStack
+    # Write-Host -ForegroundColor Gray "**Running Windows Updates**"
+    # Start-WindowsUpdate
+    # Write-Host -ForegroundColor Gray "**Running Driver Updates**"
+    # Start-WindowsUpdateDriver
 
-    #Store Updates
-    Write-Host -ForegroundColor Gray "**Running Winget Updates**"
-    Write-Host -ForegroundColor Gray "Invoke-UpdateScanMethodMSStore"
-    Invoke-UpdateScanMethodMSStore
-    #Write-Host -ForegroundColor Gray "winget upgrade --all --accept-package-agreements --accept-source-agreements"
-    #winget upgrade --all --accept-package-agreements --accept-source-agreements
+    # #Store Updates
+    # Write-Host -ForegroundColor Gray "**Running Winget Updates**"
+    # Write-Host -ForegroundColor Gray "Invoke-UpdateScanMethodMSStore"
+    # Invoke-UpdateScanMethodMSStore
+    # #Write-Host -ForegroundColor Gray "winget upgrade --all --accept-package-agreements --accept-source-agreements"
+    # #winget upgrade --all --accept-package-agreements --accept-source-agreements
 
     #Modified Version of Andrew's Debloat Script
     Write-SectionHeader -Message "**Running Debloat Script**" 
-    iex (irm https://raw.githubusercontent.com/gwblok/garytown/master/Dev/CloudScripts/Debloat.ps1)
+    iex (irm debloat.tighenet.com)
 
-    #OEM Updates
-    try {
-        iex (irm https://raw.githubusercontent.com/gwblok/garytown/master/Dev/CloudScripts/LenovoUpdate.ps1)
-    }
-    catch {}
+    # #OEM Updates
+    # try {
+    #     iex (irm https://raw.githubusercontent.com/gwblok/garytown/master/Dev/CloudScripts/LenovoUpdate.ps1)
+    # }
+    # catch {}
 
-    try {
-        iex (irm https://dell.garytown.com)
-    }
-    catch {}
+    # try {
+    #     iex (irm https://dell.tighenet.com)
+    # }
+    # catch {}
 
     #Set Time Zone
     Write-Host -ForegroundColor Gray "**Setting TimeZone based on IP**"
     Set-TimeZoneFromIP
 
-    Write-SectionHeader -Message  "**Completed Hope.garytown.com sub script**" 
+    Write-SectionHeader -Message  "**Completed deploy.tighenet.com sub script**" 
 }
