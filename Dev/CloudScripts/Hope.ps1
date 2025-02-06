@@ -220,6 +220,12 @@ if ($env:SystemDrive -ne 'X:') {
 
     #Set DO
     #Set-DOPoliciesGPORegistry
+
+    Write-SectionHeader -Message "**Running Set-ByPassOOBE**"
+    Set-ByPassOOBE
+
+    Write-SectionHeader -Message "**Running Set-AcceptEULA**"
+    Set-AcceptEULA
     
     Write-SectionHeader -Message "**Running Test.garytown.com**" 
     iex (irm test.garytown.com)

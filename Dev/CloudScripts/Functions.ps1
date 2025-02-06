@@ -5,6 +5,24 @@ Set-ExecutionPolicy Bypass -Force -ErrorAction SilentlyContinue
 Write-Host -ForegroundColor Green "[+] $ScriptName $ScriptVersion"
 #endregion
 
+Write-Host -ForegroundColor Green "[+] Function Set-ByPassOOBE"
+Function Set-ByPassOOBE {
+    $ByPassOOBE = "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE"
+    if (!(Test-Path -Path $ByPassOOBE)){
+        New-Item -Path $ByPassOOBE -ItemType Directory
+    }
+    New-ItemProperty -Path $ByPassOOBE -Name "BypassNRO" -PropertyType dword -Value '1' -Force
+}
+
+Write-Host -ForegroundColor Green "[+] Function Set-AcceptEULA"
+function Set-AcceptEULA {
+    $AcceptEULA = "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+    if (!(Test-Path -Path $AcceptEULA)){
+        New-Item -Path $AcceptEULA -ItemType Directory
+    }
+    New-ItemProperty -Path $AcceptEULA -Name "EnableLUA" -PropertyType dword -Value '0' -Force
+}
+
 Write-Host -ForegroundColor Green "[+] Function Start-DISMFromOSDCloudUSB"
 Function Test-DISMFromOSDCloudUSB {
     [CmdletBinding()]
