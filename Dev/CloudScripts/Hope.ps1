@@ -3,7 +3,7 @@ Loads Functions
 Creates Setup Complete Files
 #>
 
-$ScriptName1 = 'hope.garytown.com'
+$ScriptName1 = 'deploy.tighenet.com'
 $ScriptVersion1 = '25.1.22.1'
 
 
@@ -60,7 +60,7 @@ function Write-SectionSuccess {
 #endregion
 
 
-iex (irm functions.garytown.com)
+iex (irm functions.tighenet.com)
 #region functions
 <#
 function Set-SetupCompleteCreateStartHOPEonUSB {
@@ -92,9 +92,9 @@ function Set-SetupCompleteCreateStartHOPEonUSB {
 
     New-Item -Path $PSFilePath -ItemType File -Force
     Add-Content -path $PSFilePath "Write-Output 'Starting SetupComplete HOPE Script Process'"
-    Add-Content -path $PSFilePath "Write-Output 'iex (irm hope.garytown.com)'"
+    Add-Content -path $PSFilePath "Write-Output 'iex (irm deploy.tighenet.com)'"
     Add-Content -path $PSFilePath 'if ((Test-WebConnection) -ne $true){Write-error "No Internet, Sleeping 2 Minutes" ; start-sleep -seconds 120}'
-    Add-Content -path $PSFilePath 'iex (irm hope.garytown.com)'
+    Add-Content -path $PSFilePath 'iex (irm deploy.tighenet.com)'
 }
 
 Function Restore-SetupCompleteOriginal {
@@ -134,9 +134,9 @@ function New-SetupCompleteOSDCloudFiles{
 
     New-Item -Path $PSFilePath -ItemType File -Force
     Add-Content -path $PSFilePath "Write-Output 'Starting SetupComplete HOPE Script Process'"
-    Add-Content -path $PSFilePath "Write-Output 'iex (irm hope.garytown.com)'"
+    Add-Content -path $PSFilePath "Write-Output 'iex (irm deploy.tighenet.com)'"
     Add-Content -path $PSFilePath 'if ((Test-WebConnection) -ne $true){Write-error "No Internet, Sleeping 2 Minutes" ; start-sleep -seconds 120}'
-    Add-Content -path $PSFilePath 'iex (irm hope.garytown.com)'
+    Add-Content -path $PSFilePath 'iex (irm deploy.tighenet.com)'
 }
 #endregion
 if ($env:SystemDrive -eq 'X:') {
@@ -176,8 +176,8 @@ if ($env:SystemDrive -eq 'X:') {
     else{
         Write-Host -ForegroundColor DarkGray "No Connection to WD1TB, Skipping Drive Mapping"
     }
-    Write-SectionHeader -Message "Starting win11.garytown.com"
-    iex (irm win11.garytown.com)
+    Write-SectionHeader -Message "Starting win11.tighenet.com"
+    iex (irm win11.tighenet.com)
 
     #Create Marker so it knows this is a "HOPE" computer - No longer need thanks to the custom setup complete above.
     #new-item -Path C:\OSDCloud\configs -Name hope.JSON -ItemType file
@@ -227,8 +227,8 @@ if ($env:SystemDrive -ne 'X:') {
     Write-SectionHeader -Message "**Running Set-AcceptEULA**"
     Set-AcceptEULA
     
-    Write-SectionHeader -Message "**Running Test.garytown.com**" 
-    iex (irm test.garytown.com)
+    Write-SectionHeader -Message "**Running Test.tighenet.com**" 
+    iex (irm test.tighenet.com)
      
     #Set Time Zone to Automatic Update
     #Write-Host -ForegroundColor Gray "**Setting Time Zone for Auto Update**" 
@@ -278,7 +278,7 @@ if ($env:SystemDrive -ne 'X:') {
     catch {}
 
     try {
-        iex (irm https://dell.garytown.com)
+        iex (irm https://dell.tighenet.com)
     }
     catch {}
 
@@ -286,5 +286,5 @@ if ($env:SystemDrive -ne 'X:') {
     Write-Host -ForegroundColor Gray "**Setting TimeZone based on IP**"
     Set-TimeZoneFromIP
 
-    Write-SectionHeader -Message  "**Completed Hope.garytown.com sub script**" 
+    Write-SectionHeader -Message  "**Completed deploy.tighenet.com sub script**" 
 }
