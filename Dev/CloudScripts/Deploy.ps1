@@ -58,9 +58,6 @@ function Write-SectionSuccess {
     Write-Host -ForegroundColor Green $Message
 }
 #endregion
-
-
-iex (irm functions.tighenet.com)
 #region functions
 <#
 function Set-SetupCompleteCreateStartHOPEonUSB {
@@ -139,6 +136,10 @@ function New-SetupCompleteOSDCloudFiles{
     Add-Content -path $PSFilePath 'iex (irm deploy.tighenet.com)'
 }
 #endregion
+
+
+iex (irm functions.tighenet.com)
+
 if ($env:SystemDrive -eq 'X:') {
     $LogName = "Hope-$((Get-Date).ToString('yyyy-MM-dd-HHmmss')).log"
     Start-Transcript -Path $env:TEMP\$LogName -Append -Force
